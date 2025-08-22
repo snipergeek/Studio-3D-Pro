@@ -1,11 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template_string, request, send_from_directory
 
 app = Flask(__name__)
 
+# Route pour le CSS dans le même dossier
+@app.route('/style.css')
+def style():
+    return send_from_directory('.', 'style.css')
+
+# Page principale
 @app.route("/")
 def home():
-    return render_template("index.html")
+    with open('index.html', 'r', encoding='utf-8') as f:
+        html_content = f.read()
+    return render_template_string(html_content)
 
+# Formulaire devis
 @app.route("/devis", methods=["POST"])
 def devis():
     nom = request.form["nom"]
