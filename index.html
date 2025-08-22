@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio 3D Pro</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">Studio<span> 3D Pro </span></div>
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#produits">Produits</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="accueil" class="hero">
+    <div class="hero-content">
+        <h1>Donnez vie à vos idées avec l’impression 3D</h1>
+        <p>Prototypage, pièces techniques, figurines personnalisées. Service rapide et professionnel.</p>
+        <a href="#contact" class="btn">Demander un devis</a>
+    </div>
+</section>
+
+<section id="produits" class="produits">
+    <h2>Nos Produits</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/figurine.jpg') }}" alt="Figurine">
+            <h3>Figurine personnalisée</h3>
+            <p>Création unique à partir de vos idées ou modèles 3D.</p>
+            <span class="price">Dès 15€</span>
+            <form class="devis-form">
+                <input type="hidden" name="produit" value="Figurine personnalisée">
+                <input type="text" name="nom" placeholder="Votre nom" required>
+                <input type="email" name="email" placeholder="Votre email" required>
+                <textarea name="message" placeholder="Message (optionnel)"></textarea>
+                <button type="submit">Demander un devis</button>
+            </form>
+            <div class="devis-msg"></div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/piece.jpg') }}" alt="Pièce">
+            <h3>Pièce technique</h3>
+            <p>Pièces robustes pour vos projets ou réparations.</p>
+            <span class="price">Dès 20€</span>
+            <form class="devis-form">
+                <input type="hidden" name="produit" value="Pièce technique">
+                <input type="text" name="nom" placeholder="Votre nom" required>
+                <input type="email" name="email" placeholder="Votre email" required>
+                <textarea name="message" placeholder="Message (optionnel)"></textarea>
+                <button type="submit">Demander un devis</button>
+            </form>
+            <div class="devis-msg"></div>
+        </div>
+    </div>
+</section>
+
+<section id="avis" class="avis">
+    <h2>Avis Clients</h2>
+    <div class="avis-grid">
+        {% for avis in avis_list %}
+        <div class="avis-card">
+            <p>{% for i in range(avis.note|int) %}⭐️{% endfor %}</p>
+            <blockquote>{{ avis.commentaire }}</blockquote>
+            <span>- {{ avis.nom }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <form class="avis-form">
+        <input type="text" name="nom" placeholder="Votre nom" required>
+        <input type="number" name="note" placeholder="Note (1-5)" min="1" max="5" required>
+        <textarea name="commentaire" placeholder="Votre avis" required></textarea>
+        <input type="hidden" name="type" value="avis">
+        <button type="submit">Envoyer</button>
+    </form>
+    <div class="avis-msg"></div>
+</section>
+
+<section id="contact" class="contact">
+    <h2>Contactez-nous</h2>
+    <form class="contact-form">
+        <input type="text" name="nom" placeholder="Nom complet" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Votre message" required></textarea>
+        <input type="hidden" name="type" value="contact">
+        <button type="submit">Envoyer</button>
+    </form>
+    <div class="contact-msg"></div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Studio 3D Pro | Tous droits réservés</p>
+    <div class="socials">
+        <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">Discord</a>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
